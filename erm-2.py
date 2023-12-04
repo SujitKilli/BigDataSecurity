@@ -4,10 +4,10 @@ import sys
 # Create a Spark session
 spark = SparkSession.builder.appName("spltopics").getOrCreate()
 parameter_value = sys.argv[1] if len(sys.argv) > 1 else "employee"
-s3file = "s3a://spltopicsbucket/employee-data.csv"
+file = "./employee-data.csv"
 
 # Create the DataFrame
-df = spark.read.option("inferSchema","true").option("header","true").csv(s3file)
+df = spark.read.option("inferSchema","true").option("header","true").csv(file)
 df_filtered = None
 
 if parameter_value == 'employee':
