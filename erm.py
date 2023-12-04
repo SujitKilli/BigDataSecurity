@@ -28,11 +28,10 @@ if parameter_value == 'employee':
     df_filtered.groupBy("Role").agg(expr("min(Salary)").alias("MinSalary")).show()
     df_filtered.filter("Salary > 50000").show()
 
-    df_filtered.withColumn("Bonus", col("Salary") * 0.05).show()
+    df_filtered.withColumn("ExpectedBonus", col("Salary") * 0.05).show()
     df_filtered.withColumn("Seniority", when(col("Age") >= 30, "Senior").otherwise("Junior")).show()
 
     df_filtered.groupBy("Role").agg(expr("avg(Age)").alias("AvgAge")).show()
-    df_filtered.withColumn("AdjustedSalary", col("Salary") * 1.1).show()
 
 elif parameter_value == 'manager':
     selected_columns = ["First Name", "Last Name", "Age", "Role", "Remaining Leave Days", "Salary"]
@@ -47,10 +46,9 @@ elif parameter_value == 'manager':
 
     df_filtered.groupBy("Role").agg(expr("max(Salary)").alias("MaxSalary")).show()
     df_filtered.groupBy("Role").agg(expr("stddev(Salary)").alias("SalaryStdDev")).show()
-    df_filtered.withColumn("Bonus", col("Salary") * 0.1).show()
+    df_filtered.withColumn("ExpectedBonus", col("Salary") * 0.1).show()
 
     df_filtered.withColumn("PerformanceScore", when(col("Remaining Leave Days") > 5, "High").otherwise("Low")).show()
-    df_filtered.withColumn("AdjustedSalary", col("Salary") * 1.15).show()
 
     df_filtered.groupBy("Role").agg(expr("max(Age)").alias("MaxAge")).show()
     df_filtered.filter("Remaining Leave Days < 10").show()
